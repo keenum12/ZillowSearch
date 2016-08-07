@@ -2,7 +2,7 @@
 
 namespace ZillowSearch.Models.PropertyDetails
 {
-    public class PropertyDetails
+    public class PropertyDetail
     {
         public int ZPID { get; set; }
         public string HomeDetailsLink { get; set; }

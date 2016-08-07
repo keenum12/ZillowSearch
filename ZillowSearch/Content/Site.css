@@ -33,6 +33,7 @@
     list-style-type: none;
     margin:0;
     padding-left: 100px;
+    font-weight: bolder;
 }
 
 #navbar ul.nav-links li {

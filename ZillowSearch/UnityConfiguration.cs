@@ -21,7 +21,7 @@ namespace ZillowSearch
             // Register classes
             container.RegisterType<IZillowPropertySearchGateway, ZillowPropertySearchGateway>();
             container.RegisterType<IGenericRestServiceCaller, GenericRestServiceCaller>();
-            container.RegisterType<IPropertyDetailsFactory, PropertyDetailsFactory>();
+            container.RegisterType<IPropertyDetailFactory, PropertyDetailFactory>();
 
             return container;
         }

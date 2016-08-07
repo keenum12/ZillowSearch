@@ -4,13 +4,13 @@ using System.Collections.Generic;
 
 namespace ZillowSearch.Models.PropertyDetails
 {
-    public class PropertyDetailsFactory : IPropertyDetailsFactory
+    public class PropertyDetailFactory : IPropertyDetailFactory
     {
-        public IList<PropertyDetails> GetPropertyDetails(XElement xElement)
+        public IList<PropertyDetail> GetPropertyDetails(XElement xElement)
         {
             return (
                 from el in xElement.Elements("result")
-                select new PropertyDetails()
+                select new PropertyDetail()
                 {
                     ZPID = (int)el.Element("zpid"),
                     HomeDetailsLink = (string)el.Element("links")?.Element("homedetails") ?? "No Data Available",

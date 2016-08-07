@@ -90,7 +90,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ZillowPropertySearch\PropertyDetailsFactoryTests.cs" />
+    <Compile Include="ZillowPropertySearch\PropertyDetailFactoryTests.cs" />
     <Compile Include="ZillowPropertySearch\ZillowPropertySearchGatewayTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />

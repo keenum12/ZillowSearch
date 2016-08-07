@@ -3,8 +3,8 @@ using System.Xml.Linq;
 
 namespace ZillowSearch.Models.PropertyDetails
 {
-    public interface IPropertyDetailsFactory
+    public interface IPropertyDetailFactory
     {
-        IList<PropertyDetails> GetPropertyDetails(XElement xElement);
+        IList<PropertyDetail> GetPropertyDetails(XElement xElement);
     }
 }

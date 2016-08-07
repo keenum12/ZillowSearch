@@ -9,9 +9,9 @@ namespace ZillowSearch.ZillowPropertySerach
     {
         public bool IsSuccessful { get; private set; }
         public string Message { get; private set; }
-        public IList<PropertyDetails> Data { get; private set; }
+        public IList<PropertyDetail> Data { get; private set; }
 
-        public ZillowPropertySearchResponse(bool isSuccessful, string message, IList<PropertyDetails> data = null)
+        public ZillowPropertySearchResponse(bool isSuccessful, string message, IList<PropertyDetail> data = null)
         {
             IsSuccessful = isSuccessful;
             Message = message;

@@ -12,10 +12,10 @@ namespace ZillowSearch.ZillowPropertySerach
         private const string _apiKey = "X1-ZWz1dyb53fdhjf_6jziz";
         private const string _genericErrorMessage = "An unknown error has occurred, please try again later.";
 
-        private readonly IPropertyDetailsFactory _propertyDetailsFactory;
+        private readonly IPropertyDetailFactory _propertyDetailsFactory;
         private readonly IGenericRestServiceCaller _genericRestServiceCaller;
 
-        public ZillowPropertySearchGateway(IPropertyDetailsFactory propertyDetailsFactory,
+        public ZillowPropertySearchGateway(IPropertyDetailFactory propertyDetailsFactory,
             IGenericRestServiceCaller genericRestCaller)
         {
             _propertyDetailsFactory = propertyDetailsFactory;

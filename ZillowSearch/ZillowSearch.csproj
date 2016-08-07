@@ -145,17 +145,17 @@
     <Compile Include="Models\PropertyDetails\ZestimateRentDetail.cs" />
     <Compile Include="UnityConfiguration.cs" />
     <Compile Include="ZillowPropertySerach\IGenericRestServiceCaller.cs" />
-    <Compile Include="Models\PropertyDetails\IPropertyDetailsFactory.cs" />
+    <Compile Include="Models\PropertyDetails\IPropertyDetailFactory.cs" />
     <Compile Include="ZillowPropertySerach\ZillowPropertySearchResponse.cs" />
     <Compile Include="ZillowPropertySerach\GenericRestServiceCaller.cs" />
     <Compile Include="ZillowPropertySerach\ZillowPropertySearchGateway.cs" />
-    <Compile Include="Models\PropertyDetails\PropertyDetailsFactory.cs" />
+    <Compile Include="Models\PropertyDetails\PropertyDetailFactory.cs" />
     <Compile Include="Models\PropertyDetails\Currency.cs" />
     <Compile Include="Models\PropertyDetails\LocalRealEstateDetail.cs" />
     <Compile Include="Models\PropertyDetails\Region.cs" />
     <Compile Include="Models\PropertyDetails\ZestimateDetail.cs" />
     <Compile Include="Models\PropertyDetails\Address.cs" />
-    <Compile Include="Models\PropertyDetails\PropertyDetails.cs" />
+    <Compile Include="Models\PropertyDetails\PropertyDetail.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -194,7 +194,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
-    <None Include="Project_Readme.html" />
+    <Content Include="Readme.txt" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
