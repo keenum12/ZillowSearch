@@ -11,7 +11,8 @@ namespace ZillowSearch.Models.PropertyDetails
         public string ComparablesLink { get; set; }
 
         public Address Address { get; set; }
-        public ZestimateDetail ZetimateDetails { get; set; }
+        public ZestimateDetail ZestimateDetail { get; set; }
+        public ZestimateRentDetail ZestimateRentDetail { get; set; }
         public IList<LocalRealEstateDetail> LocalRealEstate { get; set; }
     }
 }

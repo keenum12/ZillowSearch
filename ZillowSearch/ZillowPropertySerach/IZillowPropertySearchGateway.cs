@@ -5,6 +5,6 @@ namespace ZillowSearch.ZillowPropertySerach
 {
     public interface IZillowPropertySearchGateway
     {
-        ZillowPropertySearchResponse GetPropertyDetails(string address, string cityStateOrZipCode);
+        ZillowPropertySearchResponse GetPropertyDetails(string address, string cityStateOrZipCode, bool includeRentData);
     }
 }

@@ -13,12 +13,14 @@ namespace ZillowSearch.Models.PropertyDetails
                 select new PropertyDetails()
                 {
                     ZPID = (int)el.Element("zpid"),
-                    HomeDetailsLink = (string)el.Element("links")?.Element("homedetails"),
-                    GraphDataLink = (string)el.Element("links")?.Element("graphsanddata"),
-                    MapThisHomeLink = (string)el.Element("links")?.Element("mapthishome"),
-                    ComparablesLink = (string)el.Element("links")?.Element("comparables"),
+                    HomeDetailsLink = (string)el.Element("links")?.Element("homedetails") ?? "No Data Available",
+                    GraphDataLink = (string)el.Element("links")?.Element("graphsanddata") ?? "No Data Available",
+                    MapThisHomeLink = (string)el.Element("links")?.Element("mapthishome") ?? "No Data Available",
+                    ComparablesLink = (string)el.Element("links")?.Element("comparables") ?? "No Data Available",
                     Address = GetPropertyAddress(el.Element("address")),
-                    ZetimateDetails = GetZestimateDetails(el.Element("zestimate")),
+                    ZestimateDetail = GetZestimateDetails(el.Element("zestimate")),
+                    ZestimateRentDetail = ((el.Element("rentzestimate") == null) ? null 
+                        : GetRentZestimateDetails(el.Element("rentzestimate"))),
                     LocalRealEstate = (from lre in el.Element("localRealEstate").Elements("region")
                                             select GetLocalRealEstate(lre)).ToList()
                 }).ToList();
@@ -36,6 +38,23 @@ namespace ZillowSearch.Models.PropertyDetails
                 ValuationChangeLow = new Currency((string)xElement.Element("valuationRange")?.Element("low")?.Attribute("currency"),
                     (int)xElement.Element("valuationRange")?.Element("low")),
                 ValuationChangeHigh = new Currency((string)xElement.Element("valuationRange")?.Element("high")?.Attribute("currency"),
+                    (int)xElement.Element("valuationRange")?.Element("high")),
+                Percentile = (string)xElement.Element("percentile") ?? "No Data Available"
+            };
+        }
+
+        private ZestimateRentDetail GetRentZestimateDetails(XElement xElement)
+        {
+            return new ZestimateRentDetail()
+            {
+                RentEstimate = new Currency((string)xElement.Element("amount")?.Attribute("currency"),
+                    (int)xElement.Element("amount")),
+                LastUpdated = (string)xElement.Element("last-updated"),
+                ValueChange30Day = new Currency((string)xElement.Element("valueChange")?.Attribute("currency"),
+                    (int)xElement.Element("valueChange")),
+                ValuationRangeLow = new Currency((string)xElement.Element("valuationRange")?.Element("low")?.Attribute("currency"),
+                    (int)xElement.Element("valuationRange")?.Element("low")),
+                ValuationRangeHigh = new Currency((string)xElement.Element("valuationRange")?.Element("high")?.Attribute("currency"),
                     (int)xElement.Element("valuationRange")?.Element("high"))
             };
         }
@@ -59,11 +78,11 @@ namespace ZillowSearch.Models.PropertyDetails
             {
                 Region = new Region((int)xElement.Attribute("id"), (string)xElement.Attribute("name"),
                     (string)xElement.Attribute("type")),
-                ZindexValue = (string)xElement.Element("zindexValue"),
-                ZindexYearChange = (string)xElement.Element("zindexOneYearChange"),
-                OverviewLink = (string)xElement.Element("links")?.Element("overview"),
-                ForSaleByOwnerLink = (string)xElement.Element("links")?.Element("forSaleByOwner"),
-                ForSaleLink = (string)xElement.Element("links")?.Element("forSale"),
+                ZindexValue = (string)xElement.Element("zindexValue") ?? "No Data Available",
+                ZindexYearChange = (string)xElement.Element("zindexOneYearChange") ?? "No Data Available",
+                OverviewLink = (string)xElement.Element("links")?.Element("overview") ?? "No Data Available",
+                ForSaleByOwnerLink = (string)xElement.Element("links")?.Element("forSaleByOwner") ?? "No Data Available",
+                ForSaleLink = (string)xElement.Element("links")?.Element("forSale") ?? "No Data Available",
             };
         }
     }

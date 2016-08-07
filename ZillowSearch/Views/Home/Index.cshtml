@@ -16,6 +16,10 @@
     {        
         <input type="text" value="" name="Address" placeholder="Enter a Street Address" />        
         <input type="text" value="" name="CityAndStateOrZipCode" placeholder="Enter a City & State or a Zip Code"/>
+        <select name="IncludeRentEstimate">
+            <option value="false">Exclude Rent Zestimate Details</option>
+            <option value="true">Include Rent Zestimate Details</option>
+        </select>
         <input id ="search-form-submit" type="button" value="Search" class="" />
         <div class="form-error" style="display:none;"></div>
     }    
@@ -26,14 +30,14 @@
 
 <script id="data-detail-template" type="text/x-handlebars-template">
     <div class="property-section">
-        <h2>{{Address.Street}} {{Address.City}}, {{Address.State}} {{Address.ZipCode}} - ({{Address.Latitude}},{{Address.Longitude}})</h2>
+        <h2>{{Address.Street}}, {{Address.City}}, {{Address.State}} {{Address.ZipCode}} - ({{Address.Latitude}},{{Address.Longitude}})</h2>
 
         <div class="property-sub-section">
-            <h3>Useful Links</h3>
-            <div class="row"><span class="row-field">Home Details: </span><a class="row-detail">{{HomeDetailsLink}}</a></div>
-            <div class="row"><span class="row-field">Chart Data: </span><a class="row-detail">{{GraphDataLink}}</a></div>
-            <div class="row"><span class="row-field">Map This Home: </span><a class="row-detail">{{MapThisHomeLink}}</a></div>
-            <div class="row"><span class="row-field">Similar Sales: </span><a class="row-detail">{{ComparablesLink}}</a></div>
+            <h3>Property Links</h3>
+            <div class="row"><a class="row-field" href="{{HomeDetailsLink}}">Home Details</a></div>
+            <div class="row"><a class="row-field" href="{{GraphDataLink}}">Chart Data</a></div>
+            <div class="row"><a class="row-field" href="{{MapThisHomeLink}}">Map This Home</a></div>
+            <div class="row"><a class="row-field" href="{{ComparablesLink}}">Comparable Homes</a></div>
         </div>
 
         {{#each LocalRealEstate}}
@@ -41,20 +45,29 @@
             <h3>Local Real Estate - {{this.Region.Name}} - {{this.Region.Type}}</h3>
             <div class="row"><span class="row-field">Zindex Value: </span><span class="row-detail">{{this.ZindexValue}}</span></div>
             <div class="row"><span class="row-field">Zindex Year Change: </span><span class="row-detail">{{this.ZindexYearChange}}</span></div>
-            <div class="row"><span class="row-field">Overview: </span><span class="row-detail">{{this.OverviewLink}}</span></div>
-            <div class="row"><span class="row-field">For Sale By Owner: </span><a class="row-detail">{{this.ForSaleByOwnerLink}}</a></div>
-            <div class="row"><span class="row-field">For Sale: </span><a class="row-detail">{{this.ForSaleLink}}</a></div>
+            <div class="row"><a class="row-field" href="{{this.OverviewLink}}">Area Overview</a></div>
+            <div class="row"><a class="row-field" href="{{this.ForSaleByOwnerLink}}">For Sale By Owner</a></div>
+            <div class="row"><a class="row-field" href="{{this.ForSaleLink}}">For Sale</a></div>
         </div>
         {{/each}}
 
         <div class="property-sub-section">
             <h3>Zestimate Data</h3>
-            <div class="row"><span class="row-field">Amount: </span><span class="row-detail">${{ZetimateDetails.Amount.DollarAmount}} {{ZetimateDetails.Amount.Type}}</span></div>
-            <div class="row"><span class="row-field">Last Updated: </span><span class="row-detail">{{ZetimateDetails.LastUpdated}}</span></div>
-            <div class="row"><span class="row-field">Value Change (30 Day): </span><span class="row-detail">${{ZetimateDetails.ValueChange30Day.DollarAmount}} {{ZetimateDetails.ValueChange30Day.Type}}</span></div>
-            <div class="row"><span class="row-field">Valudation Change Low: </span><span class="row-detail">${{ZetimateDetails.ValuationChangeLow.DollarAmount}} {{ZetimateDetails.ValuationChangeLow.Type}}</span></div>
-            <div class="row"><span class="row-field">Valudation Change High: </span><span class="row-detail">${{ZetimateDetails.ValuationChangeHigh.DollarAmount}} {{ZetimateDetails.ValuationChangeHigh.Type}}</span></div>
-            <div class="row"><span class="row-field">Percentile: </span><span class="row-detail">{{ZetimateDetails.Percentile}}</span></div>
+            <div class="row"><span class="row-field">Amount: </span><span class="row-detail">${{ZestimateDetail.Amount.DollarAmount}} {{ZestimateDetail.Amount.Type}}</span></div>
+            <div class="row"><span class="row-field">Last Updated: </span><span class="row-detail">{{ZestimateDetail.LastUpdated}}</span></div>
+            <div class="row"><span class="row-field">Value Change (30 Day): </span><span class="row-detail">${{ZestimateDetail.ValueChange30Day.DollarAmount}} {{ZestimateDetail.ValueChange30Day.Type}}</span></div>
+            <div class="row"><span class="row-field">Valudation Change Low: </span><span class="row-detail">${{ZestimateDetail.ValuationChangeLow.DollarAmount}} {{ZestimateDetail.ValuationChangeLow.Type}}</span></div>
+            <div class="row"><span class="row-field">Valudation Change High: </span><span class="row-detail">${{ZestimateDetail.ValuationChangeHigh.DollarAmount}} {{ZestimateDetail.ValuationChangeHigh.Type}}</span></div>
+            <div class="row"><span class="row-field">Percentile: </span><span class="row-detail">{{ZestimateDetail.Percentile}}</span></div>
+        </div>
+
+        <div class="property-sub-section rent-zestimate-data">
+            <h3>Rent Zestimate Data</h3>
+            <div class="row"><span class="row-field">Amount: </span><span class="row-detail">${{ZestimateRentDetail.Amount.DollarAmount}} {{ZestimateRentDetail.Amount.Type}}</span></div>
+            <div class="row"><span class="row-field">Last Updated: </span><span class="row-detail">{{ZestimateRentDetail.LastUpdated}}</span></div>
+            <div class="row"><span class="row-field">Value Change (30 Day): </span><span class="row-detail">${{ZestimateRentDetail.ValueChange30Day.DollarAmount}} {{ZestimateRentDetail.ValueChange30Day.Type}}</span></div>
+            <div class="row"><span class="row-field">Valudation Change Low: </span><span class="row-detail">${{ZestimateRentDetail.ValuationChangeLow.DollarAmount}} {{ZestimateRentDetail.ValuationChangeLow.Type}}</span></div>
+            <div class="row"><span class="row-field">Valudation Change High: </span><span class="row-detail">${{ZestimateRentDetail.ValuationChangeHigh.DollarAmount}} {{ZestimateRentDetail.ValuationChangeHigh.Type}}</span></div>
         </div>
     </div>
 </script>

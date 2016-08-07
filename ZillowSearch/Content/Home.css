@@ -1,8 +1,53 @@
 ﻿/* page styling */
+body {
+    min-width: 400px;
+}
+
 #search-form {
     text-align: center;
 }
 
 h1 {
     text-align: center;
+}
+
+/* Propery Detail Styling */
+#search-details {
+    width: 100%;
+    min-height: 400px;
+    overflow: auto;
+    clear: right;
+}
+
+.property-section {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.property-section h2 {
+    border-bottom: 1px solid lightblue;
+    padding: 5px;
+    font-size: 1.2em;
+}
+
+.property-sub-section h3 {
+    border-bottom: 1px solid lightblue;
+    padding: 5px;
+    font-size: 1.1em;
+    width: 70%;    
+}
+
+.property-sub-section .row {
+    padding:2px 2px 2px 6px;
+    overflow: auto;
+    font-size: 1em;
+}
+
+.property-sub-section .row .row-field {
+    float: left;
+}
+
+.property-sub-section .row .row-detail {
+    float: right;
+    margin-right: 30%;
 }

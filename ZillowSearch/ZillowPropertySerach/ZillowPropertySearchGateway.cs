@@ -22,7 +22,7 @@ namespace ZillowSearch.ZillowPropertySerach
             _genericRestServiceCaller = genericRestCaller;
         }
 
-        public ZillowPropertySearchResponse GetPropertyDetails(string address, string cityStateOrZipCode)
+        public ZillowPropertySearchResponse GetPropertyDetails(string address, string cityStateOrZipCode, bool includeRentData)
         {
             // Verify Input
             if (string.IsNullOrWhiteSpace(address))
@@ -40,7 +40,8 @@ namespace ZillowSearch.ZillowPropertySerach
                 new Dictionary<string, string>() {
                     { "zws-id", _apiKey },
                     { "address", address },
-                    { "citystatezip", cityStateOrZipCode }
+                    { "citystatezip", cityStateOrZipCode },
+                    { "rentzestimate", includeRentData.ToString().ToLower() }
                 });
 
             // Process Result
@@ -51,38 +52,26 @@ namespace ZillowSearch.ZillowPropertySerach
             }
 
             int responseCode = (int)xmlDocument.Element("message").Element("code");
+            string responseText = (string)xmlDocument.Element("message").Element("text");
             if (responseCode == 0)
             {
                 return new ZillowPropertySearchResponse(true, string.Empty,
                     _propertyDetailsFactory.GetPropertyDetails(xmlDocument.Element("response").Element("results")));
             }
 
-            return new ZillowPropertySearchResponse(false, GetErrorCodeMessage(responseCode));
+            return new ZillowPropertySearchResponse(false, GetErrorCodeMessage(responseCode, responseText));
         }
 
-        private string GetErrorCodeMessage(int errorCode)
+        private string GetErrorCodeMessage(int errorCode, string responseText)
         {
-            switch(errorCode)
+            if (errorCode >= 500)
             {
-                case 3:
-                case 4:
-                    return "The Zillow Web Service is currently not available. Please come back later and try again";
-                case 500:
-                    return "Invalid address.  Please verify the address and try again.";
-                case 501:
-                case 503:
-                    return "Invalid city & state or zip code.  Please verify the information and try again.";
-                case 502:
-                case 507:
-                    return "No data was found for the information provided.";
-                case 504:
-                    return "The specified area is not covered by Zillow property database.";
-                case 505:
-                    return "Request timed out, please try again later.";
-                case 506:
-                    return "Address provided is too long, please shorten the address using abbreviations and try again.";
-                default:
-                    return _genericErrorMessage;
+                return responseText;
+            }
+            else
+            {
+                // TODO: Add some logging for these critical error messages
+                return "The Zillow Web Service is currently not available. Please come back later and try again";
             }
         }
     }

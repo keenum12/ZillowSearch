@@ -13,7 +13,8 @@
         // Call server
         var serverData = {
             Address: form.find('[name="Address"]').val(),
-            CityAndStateOrZipCode: form.find('[name="CityAndStateOrZipCode"]').val()
+            CityAndStateOrZipCode: form.find('[name="CityAndStateOrZipCode"]').val(),
+            IncludeRentEstimate: form.find('[name="IncludeRentEstimate"]').val()
         };
 
         $.ajaxSetup({ cache: false });
@@ -21,6 +22,9 @@
             if (data.Success) {
                 for (var i in data.Data) {
                     $('#search-details').append(detailDataTemplate(data.Data[i]));
+                }
+                if (serverData.IncludeRentEstimate == "false") {
+                    $('.rent-zestimate-data').hide();
                 }
             }
             else {

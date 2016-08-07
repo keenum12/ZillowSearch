@@ -145,6 +145,7 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Models\PropertyDetails\ZestimateRentDetail.cs" />
     <Compile Include="UnityConfiguration.cs" />
     <Compile Include="ZillowPropertySerach\IGenericRestServiceCaller.cs" />
     <Compile Include="Models\PropertyDetails\IPropertyDetailsFactory.cs" />

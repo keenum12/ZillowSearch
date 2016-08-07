@@ -27,7 +27,7 @@ namespace ZillowSearch.Controllers
                 if (ModelState.IsValid)
                 {
                     ZillowPropertySearchResponse serviceResponse = _zillowPropertySerachGateway.GetPropertyDetails(
-                        model.Address, model.CityAndStateOrZipCode);
+                        model.Address, model.CityAndStateOrZipCode, model.IncludeRentEstimate);
 
                     if (serviceResponse.IsSuccessful)
                     {
