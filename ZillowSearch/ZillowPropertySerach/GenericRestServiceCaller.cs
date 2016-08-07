@@ -1,29 +1,29 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
-using System.Threading.Tasks;
 using System.Web;
-using System.Xml.Linq;
+using System.Linq;
 
 namespace ZillowSearch.ZillowPropertySerach
 {
     public class GenericRestServiceCaller : IGenericRestServiceCaller
     {   
-        public async Task<string> GetStringResponse(string baseUrl, string actionAndParameters)
+        public string GetStringResponse(string baseUrl, string action, IDictionary<string,string> parameters)
         {
             if (string.IsNullOrWhiteSpace(baseUrl))
             {
                 throw new ArgumentException("baseUrl is required.", nameof(baseUrl));
             }
-            if (string.IsNullOrWhiteSpace(actionAndParameters))
+            if (string.IsNullOrWhiteSpace(action))
             {
-                throw new ArgumentException("actionAndParameters is required.", nameof(actionAndParameters));
+                throw new ArgumentException("action is required.", nameof(action));
             }
 
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri(baseUrl);
-                
-                HttpResponseMessage response = await client.GetAsync(HttpUtility.UrlEncode(actionAndParameters));
+                HttpResponseMessage response = client.GetAsync(action + "?" + string.Join("&", parameters.Select(
+                    x => $"{HttpUtility.HtmlEncode(x.Key)}={HttpUtility.HtmlEncode(x.Value)}"))).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     return response.Content.ReadAsStringAsync().Result;

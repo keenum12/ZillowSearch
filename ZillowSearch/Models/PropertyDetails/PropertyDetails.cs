@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ZillowSearch.Models
+namespace ZillowSearch.Models.PropertyDetails
 {
     public class PropertyDetails
     {
@@ -12,6 +12,6 @@ namespace ZillowSearch.Models
 
         public Address Address { get; set; }
         public ZestimateDetail ZetimateDetails { get; set; }
-        public IList<LocalRealEstateDetail> LocalNeighborhoods { get; set; }
+        public IList<LocalRealEstateDetail> LocalRealEstate { get; set; }
     }
 }

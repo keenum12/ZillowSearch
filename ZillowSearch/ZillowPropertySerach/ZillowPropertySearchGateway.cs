@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Web;
 using System.Xml.Linq;
+using ZillowSearch.Models.PropertyDetails;
 
 namespace ZillowSearch.ZillowPropertySerach
 {
@@ -35,13 +36,15 @@ namespace ZillowSearch.ZillowPropertySerach
             }
 
             // Call service
-            string urlParameters = "?zws-id=" + _apiKey + "&address=" + HttpUtility.UrlEncode(address) 
-                + "&citystatezip=" + HttpUtility.UrlEncode(cityStateOrZipCode);
-            Task<string> response = _genericRestServiceCaller.GetStringResponse(_baseURL, 
-                "GetSearchResults.htm" + urlParameters);
+            string response = _genericRestServiceCaller.GetStringResponse(_baseURL, "GetSearchResults.htm",
+                new Dictionary<string, string>() {
+                    { "zws-id", _apiKey },
+                    { "address", address },
+                    { "citystatezip", cityStateOrZipCode }
+                });
 
             // Process Result
-            XDocument xmlDocument = response == null ? null : XDocument.Parse(response.Result);
+            XElement xmlDocument = response == null ? null : XElement.Parse(response);
             if (xmlDocument == null)
             {
                 return new ZillowPropertySearchResponse(false, _genericErrorMessage);

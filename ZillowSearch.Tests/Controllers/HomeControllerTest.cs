@@ -6,46 +6,30 @@ using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ZillowSearch;
 using ZillowSearch.Controllers;
+using ZillowSearch.ZillowPropertySerach;
+using Moq;
 
 namespace ZillowSearch.Tests.Controllers
 {
     [TestClass]
     public class HomeControllerTest
     {
+        private Mock<IZillowPropertySearchGateway> _zillowPropertySearchGateway;
+
+        [TestInitialize]
+        public void Initilize()
+        {
+            _zillowPropertySearchGateway = new Mock<IZillowPropertySearchGateway>();
+        }
+
         [TestMethod]
-        public void Index()
+        public void HomeController_TestIndex()
         {
             // Arrange
-            HomeController controller = new HomeController();
+            HomeController controller = new HomeController(_zillowPropertySearchGateway.Object);
 
             // Act
             ViewResult result = controller.Index() as ViewResult;
-
-            // Assert
-            Assert.IsNotNull(result);
-        }
-
-        [TestMethod]
-        public void About()
-        {
-            // Arrange
-            HomeController controller = new HomeController();
-
-            // Act
-            ViewResult result = controller.About() as ViewResult;
-
-            // Assert
-            Assert.AreEqual("Your application description page.", result.ViewBag.Message);
-        }
-
-        [TestMethod]
-        public void Contact()
-        {
-            // Arrange
-            HomeController controller = new HomeController();
-
-            // Act
-            ViewResult result = controller.Contact() as ViewResult;
 
             // Assert
             Assert.IsNotNull(result);

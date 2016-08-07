@@ -1,6 +1,6 @@
 ﻿using ZillowSearch.Models;
 
-namespace ZillowSearch.Models
+namespace ZillowSearch.Models.PropertyDetails
 {
     public class ZestimateDetail
     {

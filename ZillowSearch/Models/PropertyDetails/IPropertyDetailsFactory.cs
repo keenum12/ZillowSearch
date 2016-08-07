@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Linq;
-using ZillowSearch.Models;
 
-namespace ZillowSearch.ZillowPropertySerach
+namespace ZillowSearch.Models.PropertyDetails
 {
     public interface IPropertyDetailsFactory
     {

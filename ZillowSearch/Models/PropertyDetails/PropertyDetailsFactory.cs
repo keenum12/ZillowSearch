@@ -1,10 +1,8 @@
 ﻿using System.Xml.Linq;
 using System.Linq;
-using System;
-using ZillowSearch.Models;
 using System.Collections.Generic;
 
-namespace ZillowSearch.ZillowPropertySerach
+namespace ZillowSearch.Models.PropertyDetails
 {
     public class PropertyDetailsFactory : IPropertyDetailsFactory
     {
@@ -21,7 +19,7 @@ namespace ZillowSearch.ZillowPropertySerach
                     ComparablesLink = (string)el.Element("links")?.Element("comparables"),
                     Address = GetPropertyAddress(el.Element("address")),
                     ZetimateDetails = GetZestimateDetails(el.Element("zestimate")),
-                    LocalNeighborhoods = (from lre in el.Element("localRealEstate").Elements("region")
+                    LocalRealEstate = (from lre in el.Element("localRealEstate").Elements("region")
                                             select GetLocalRealEstate(lre)).ToList()
                 }).ToList();
         }
@@ -50,7 +48,7 @@ namespace ZillowSearch.ZillowPropertySerach
                 ZipCode = (int)xElement.Element("zipcode"),
                 City = (string)xElement.Element("city"),
                 State = (string)xElement.Element("state"),
-                Latitiude = (string)xElement.Element("latitude"),
+                Latitude = (string)xElement.Element("latitude"),
                 Longitude = (string)xElement.Element("longitude"),
             };
         }

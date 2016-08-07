@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Linq;
 using ZillowSearch.Models;
+using ZillowSearch.Models.PropertyDetails;
 
 namespace ZillowSearch.ZillowPropertySerach
 {

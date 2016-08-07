@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using ZillowSearch.Models;
+using ZillowSearch.Models.PropertyDetails;
 using ZillowSearch.ZillowPropertySerach;
 
 namespace ZillowSearch.Tests.ZillowPropertySerach
@@ -18,7 +19,7 @@ namespace ZillowSearch.Tests.ZillowPropertySerach
         {
             // Arrange
             PropertyDetailsFactory factory = new PropertyDetailsFactory();
-            var data = XElement.Parse(_xmlExampleOneResultOneRegion).Element("response").Element("results").Element("result");
+            var data = XElement.Parse(_xmlExampleOneResultOneRegion).Element("response").Element("results");
 
             // Act
             IList<PropertyDetails> details = factory.GetPropertyDetails(data);
@@ -32,13 +33,13 @@ namespace ZillowSearch.Tests.ZillowPropertySerach
         {
             // Arrange
             PropertyDetailsFactory factory = new PropertyDetailsFactory();
-            var data = XElement.Parse(_xmlExampleOneResultMultipleRegion).Element("response").Element("results").Element("result");
+            var data = XElement.Parse(_xmlExampleOneResultMultipleRegion).Element("response").Element("results");
 
             // Act
             IList<PropertyDetails> details = factory.GetPropertyDetails(data);
 
             // Assert
-            Assert.IsTrue(details.First().LocalNeighborhoods.Count > 1);
+            Assert.IsTrue(details.First().LocalRealEstate.Count > 1);
         }
     }
 }

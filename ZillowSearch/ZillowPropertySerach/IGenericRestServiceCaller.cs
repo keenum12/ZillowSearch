@@ -1,9 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ZillowSearch.ZillowPropertySerach
 {
     public interface IGenericRestServiceCaller
     {
-        Task<string> GetStringResponse(string baseUrl, string actionAndParameters);
+        string GetStringResponse(string baseUrl, string action, IDictionary<string, string> parameters);
     }
 }
