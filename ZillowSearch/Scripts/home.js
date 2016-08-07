@@ -8,7 +8,7 @@
     var processHash = function () {
         if (window.location.hash) {
             var valueSet = false;
-            var keyValueArray = window.location.hash.split(';');
+            var keyValueArray = window.location.hash.substr(1).split(';');
             for (var i in keyValueArray) {
                 var keyValuePair = keyValueArray[i].split('=');
                 if (keyValuePair.length == 2) {
