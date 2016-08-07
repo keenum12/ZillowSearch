@@ -34,7 +34,7 @@ namespace ZillowSearch.Tests.ZillowPropertySerach
                 _genericRestCallerMock.Object);
 
             // Act
-            var t = service.GetPropertyDetails("", "Menifee, CA");
+            var t = service.GetPropertyDetails("", "Menifee, CA", false);
         }
 
         [TestMethod]
@@ -46,7 +46,7 @@ namespace ZillowSearch.Tests.ZillowPropertySerach
                 _genericRestCallerMock.Object);
 
             // Act
-            var t = service.GetPropertyDetails("29622 Ash Dale Way", "");
+            var t = service.GetPropertyDetails("29622 Ash Dale Way", "", false);
         }
 
         [TestMethod]
@@ -57,7 +57,7 @@ namespace ZillowSearch.Tests.ZillowPropertySerach
                 _genericRestCallerMock.Object);
 
             // Act
-            var t = service.GetPropertyDetails("29622 Ash Dale Way", "95584");
+            var t = service.GetPropertyDetails("29622 Ash Dale Way", "95584", false);
 
             // Verify
             Assert.IsTrue(t.IsSuccessful);
