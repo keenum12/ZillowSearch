@@ -35,9 +35,9 @@ namespace ZillowSearch.Models.PropertyDetails
                 LastUpdated = (string)xElement.Element("last-updated"),
                 ValueChange30Day = new Currency((string)xElement.Element("valueChange")?.Attribute("currency"),
                     (int)xElement.Element("valueChange")),
-                ValuationChangeLow = new Currency((string)xElement.Element("valuationRange")?.Element("low")?.Attribute("currency"),
+                ValuationRangeLow = new Currency((string)xElement.Element("valuationRange")?.Element("low")?.Attribute("currency"),
                     (int)xElement.Element("valuationRange")?.Element("low")),
-                ValuationChangeHigh = new Currency((string)xElement.Element("valuationRange")?.Element("high")?.Attribute("currency"),
+                ValuationRangeHigh = new Currency((string)xElement.Element("valuationRange")?.Element("high")?.Attribute("currency"),
                     (int)xElement.Element("valuationRange")?.Element("high")),
                 Percentile = (string)xElement.Element("percentile") ?? "No Data Available"
             };
