@@ -31,9 +31,9 @@
 
         // Build Query Data
         var serverData = {
-            Address: form.find('[name="Address"]').val(),
-            CityAndStateOrZipCode: form.find('[name="CityAndStateOrZipCode"]').val(),
-            IncludeRentEstimate: form.find('[name="IncludeRentEstimate"]').val()
+            Address: $.trim(form.find('[name="Address"]').val()),
+            CityAndStateOrZipCode: $.trim(form.find('[name="CityAndStateOrZipCode"]').val()),
+            IncludeRentEstimate: $.trim(form.find('[name="IncludeRentEstimate"]').val())
         };
 
         // Append params to url

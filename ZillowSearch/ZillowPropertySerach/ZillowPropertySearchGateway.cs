@@ -32,15 +32,15 @@ namespace ZillowSearch.ZillowPropertySerach
 
             if (string.IsNullOrWhiteSpace(cityStateOrZipCode))
             {
-                throw new ArgumentException("City and State or ZipCode is required.");
+                throw new ArgumentException("City and State or ZipCode is required.", nameof(cityStateOrZipCode));
             }
 
             // Call service
             string response = _genericRestServiceCaller.GetStringResponse(_baseURL, "GetSearchResults.htm",
                 new Dictionary<string, string>() {
                     { "zws-id", _apiKey },
-                    { "address", address },
-                    { "citystatezip", cityStateOrZipCode },
+                    { "address", address.Trim() },
+                    { "citystatezip", cityStateOrZipCode.Trim() },
                     { "rentzestimate", includeRentData.ToString().ToLower() }
                 });
 
