@@ -1,23 +1,49 @@
 ﻿$(document).ready(function () {
     var detailDataTemplate = Handlebars.compile($('#data-detail-template').html());
+    var form = $('#search-form').children('form');
+    var errorSection = form.find('.form-error');
+    var searchDetails = $('#search-details');
+    
+    // Process the hash from the url and auto query
+    var processHash = function () {
+        if (window.location.hash) {
+            var valueSet = false;
+            var keyValueArray = window.location.hash.split(';');
+            for (var i in keyValueArray) {
+                var keyValuePair = keyValueArray[i].split('=');
+                if (keyValuePair.length == 2) {
+                    form.find('[name="' + decodeURIComponent(keyValuePair[0]) + '"]')
+                        .val(decodeURIComponent(keyValuePair[1]));
+                    valueSet = true;
+                }
+            }
+
+            if (valueSet) {
+                search();
+            }
+        }
+    };
 
     var search = function () {
-        var form = $('#search-form').children('form');
-        var errorSection = form.find('.form-error');
-        var searchDetails = $('#search-details');
-
         // Clear any previous errors
         errorSection.empty().hide();
         searchDetails.empty();
 
-        // Call server
+        // Build Query Data
         var serverData = {
             Address: form.find('[name="Address"]').val(),
             CityAndStateOrZipCode: form.find('[name="CityAndStateOrZipCode"]').val(),
             IncludeRentEstimate: form.find('[name="IncludeRentEstimate"]').val()
         };
 
-        $.ajaxSetup({ cache: false });
+        // Append params to url
+        var hash = "";
+        for (var key in serverData) {
+            hash += ';' + encodeURIComponent(key) + "=" + encodeURIComponent(serverData[key]);
+        }
+        window.location.hash = hash.substr(1);
+        
+        // Call Server
         $.get('/Home/Search', serverData, function (data, status, xhr) {
             if (data.Success) {
                 for (var i in data.Data) {
@@ -45,4 +71,7 @@
             search();
         }
     });
+
+    // Process hash from url
+    processHash();
 });
