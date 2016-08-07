@@ -28,4 +28,7 @@ button:hover, input[type=button]:hover {
 
 .form-error {
     color: red;
+    text-align: left;
+    width: 40%;
+    margin: 0 auto;
 }

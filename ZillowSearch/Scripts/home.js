@@ -38,6 +38,11 @@
         });
     };
     
-    // Bind submit event to post data to server
+    // Bind button submit event / enter press to send query to server
     $('#search-form-submit').on('click', search);
+    $('#search-form input,select').keyup(function (event) {
+        if (event.keyCode == 13) {
+            search();
+        }
+    });
 });
