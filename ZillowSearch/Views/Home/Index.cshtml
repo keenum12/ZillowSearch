@@ -1,31 +1,73 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model ZillowSearch.Models.HomeViewModel
+
+@section styles {
+    @Styles.Render("~/Content/home")
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+@section scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/home")
+}
+
+<h1> Get Property Details</h1>
+
+<div id="search-form">
+    @using (Html.BeginForm("Search", "Home", FormMethod.Post, new { @class = "", role = "form" }))
+    {        
+        <input type="text" value="" name="Address" placeholder="Enter a Street Address" />        
+        <input type="text" value="" name="CityAndStateOrZipCode" placeholder="Enter a City & State or a Zip Code"/>
+        <select name="IncludeRentEstimate">
+            <option value="false">Exclude Rent Zestimate Details</option>
+            <option value="true">Include Rent Zestimate Details</option>
+        </select>
+        <input id ="search-form-submit" type="button" value="Search" class="" />
+        <div class="form-error" style="display:none;"></div>
+    }    
+</div>
+<hr />
+<div id="search-details">
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+<script id="data-detail-template" type="text/x-handlebars-template">
+    <div class="property-section">
+        <h2>{{Address.Street}}, {{Address.City}}, {{Address.State}} {{Address.ZipCode}} - ({{Address.Latitude}},{{Address.Longitude}})</h2>
+
+        <div class="property-sub-section">
+            <h3>Property Links</h3>
+            <div class="row"><a class="row-field" href="{{HomeDetailsLink}}">Home Details</a></div>
+            <div class="row"><a class="row-field" href="{{GraphDataLink}}">Chart Data</a></div>
+            <div class="row"><a class="row-field" href="{{MapThisHomeLink}}">Map This Home</a></div>
+            <div class="row"><a class="row-field" href="{{ComparablesLink}}">Comparable Homes</a></div>
+        </div>
+
+        {{#each LocalRealEstate}}
+        <div class="property-sub-section">
+            <h3>Local Real Estate - {{this.Region.Name}} - {{this.Region.Type}}</h3>
+            <div class="row"><span class="row-field">Zindex Value: </span><span class="row-detail">{{this.ZindexValue}}</span></div>
+            <div class="row"><span class="row-field">Zindex Year Change: </span><span class="row-detail">{{this.ZindexYearChange}}</span></div>
+            <div class="row"><a class="row-field" href="{{this.OverviewLink}}">Area Overview</a></div>
+            <div class="row"><a class="row-field" href="{{this.ForSaleByOwnerLink}}">For Sale By Owner</a></div>
+            <div class="row"><a class="row-field" href="{{this.ForSaleLink}}">For Sale</a></div>
+        </div>
+        {{/each}}
+
+        <div class="property-sub-section">
+            <h3>Zestimate Data</h3>
+            <div class="row"><span class="row-field">Amount: </span><span class="row-detail">${{ZestimateDetail.Amount.DollarAmount}} {{ZestimateDetail.Amount.Type}}</span></div>
+            <div class="row"><span class="row-field">Last Updated: </span><span class="row-detail">{{ZestimateDetail.LastUpdated}}</span></div>
+            <div class="row"><span class="row-field">Value Change (30 Day): </span><span class="row-detail">${{ZestimateDetail.ValueChange30Day.DollarAmount}} {{ZestimateDetail.ValueChange30Day.Type}}</span></div>
+            <div class="row"><span class="row-field">Valudation Change Low: </span><span class="row-detail">${{ZestimateDetail.ValuationChangeLow.DollarAmount}} {{ZestimateDetail.ValuationChangeLow.Type}}</span></div>
+            <div class="row"><span class="row-field">Valudation Change High: </span><span class="row-detail">${{ZestimateDetail.ValuationChangeHigh.DollarAmount}} {{ZestimateDetail.ValuationChangeHigh.Type}}</span></div>
+            <div class="row"><span class="row-field">Percentile: </span><span class="row-detail">{{ZestimateDetail.Percentile}}</span></div>
+        </div>
+
+        <div class="property-sub-section rent-zestimate-data">
+            <h3>Rent Zestimate Data</h3>
+            <div class="row"><span class="row-field">Amount: </span><span class="row-detail">${{ZestimateRentDetail.Amount.DollarAmount}} {{ZestimateRentDetail.Amount.Type}}</span></div>
+            <div class="row"><span class="row-field">Last Updated: </span><span class="row-detail">{{ZestimateRentDetail.LastUpdated}}</span></div>
+            <div class="row"><span class="row-field">Value Change (30 Day): </span><span class="row-detail">${{ZestimateRentDetail.ValueChange30Day.DollarAmount}} {{ZestimateRentDetail.ValueChange30Day.Type}}</span></div>
+            <div class="row"><span class="row-field">Valudation Change Low: </span><span class="row-detail">${{ZestimateRentDetail.ValuationChangeLow.DollarAmount}} {{ZestimateRentDetail.ValuationChangeLow.Type}}</span></div>
+            <div class="row"><span class="row-field">Valudation Change High: </span><span class="row-detail">${{ZestimateRentDetail.ValuationChangeHigh.DollarAmount}} {{ZestimateRentDetail.ValuationChangeHigh.Type}}</span></div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+</script>
